@@ -1,0 +1,9 @@
+.container {
+    position: absolute;
+    top: 33%;
+    left: 33%;
+    transform: translateX(-33%) translateY(-33%);
+}
+.login-input {
+    width: 250px;
+}
