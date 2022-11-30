@@ -1,0 +1,8 @@
+<div class="doc-cont">
+    <button mat-button color="primary" class=" doc-cell" (click)="ui.startNewApp()"><mat-icon>event_available</mat-icon></button>
+    <div class="app-cont doc-cell">
+    <p *ngIf="ui.getLoading()"> Loading appointments</p>
+    <app-new-appointment></app-new-appointment>
+    <app-appointment *ngFor="let appointment of ui.getAppointments()" [appointment]="appointment"></app-appointment>
+    </div>
+</div>

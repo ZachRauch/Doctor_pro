@@ -13,11 +13,17 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
+import { DoctorComponent } from './components/doctor/doctor.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 
 
 @NgModule({
@@ -25,7 +31,10 @@ import { HeaderComponent } from './components/header/header.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HeaderComponent
+    HeaderComponent,
+    DoctorComponent,
+    AppointmentComponent,
+    NewAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +47,10 @@ import { HeaderComponent } from './components/header/header.component';
     MatSnackBarModule,
     FormsModule,
     HttpClientModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

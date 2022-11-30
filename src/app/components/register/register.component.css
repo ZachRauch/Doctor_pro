@@ -1,9 +1,15 @@
 .container {
+    margin: 0;
     position: absolute;
-    top: 33%;
-    left: 33%;
-    transform: translateX(-33%) translateY(-33%);
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 .login-input {
     width: 250px;
+}
+.button {
+    margin-bottom: 10px;
 }

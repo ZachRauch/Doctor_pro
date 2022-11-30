@@ -1,0 +1,11 @@
+.app-cont {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.doc-cont {
+    display: table;
+}
+.doc-cell {
+    display: table-cell;
+}

@@ -14,18 +14,18 @@
         }
     ],
 
-    "apointments": [
+    "appointments": [
         {
             "doctorId": 1,
-            "patientId": 0,
+            "patientId": null,
             "date": "2022-11-30",
             "slots": 0
         },
         {
             "doctorId": 1,
-            "patientId": null,
+            "patientId": 0,
             "date": "2022-11-30",
-            "slots": 1
+            "slot": 1
         }
     ]
 }

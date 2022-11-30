@@ -1,0 +1,21 @@
+<mat-card class="app-card">
+    <mat-card-header>
+      <mat-card-title>Available</mat-card-title>
+      <mat-card-subtitle>
+        <mat-form-field appearance="fill">
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-select class="sel">
+            <mat-option *ngFor="let s of slots" [value]="s">
+            {{ s }}
+            </mat-option>
+          </mat-select>
+    </mat-card-subtitle>    
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-button color="green" (click)="ui.newApp(date, slot)"><mat-icon>check</mat-icon></button>
+      <button mat-button color="warn" (click)="ui.stopNewApp()"><mat-icon>cancel</mat-icon></button>
+    </mat-card-actions>
+</mat-card>
