@@ -196,7 +196,7 @@ export class UiService {
   }
 
   public tryLogin(username: string, password: string) {
-    this.http.get<User[]>(`http://localhost:3000/users?username.toLowerCase()=${username.toLowerCase()}&password=${password}`)
+    this.http.get<User[]>(`http://localhost:3000/users?username=${username}&password=${password}`)
     .pipe(take(1))
     .subscribe({
       next: users => {
@@ -262,9 +262,12 @@ export class UiService {
       }
     })
   }
+  public checkPassword(password: string, password2: string): void {
 
-  public tryRegister(username: string, password: string, value: boolean): void {
-    this.http.get<User[]>(`http://localhost:3000/users?username=${username}`)
+  }
+
+  public tryRegister(username: string, password: string, password2: string, value: boolean): void {
+    if (password === password2) {this.http.get<User[]>(`http://localhost:3000/users?username=${username}`)
     .pipe(take(1))
     .subscribe({
       next: users => {
@@ -278,10 +281,13 @@ export class UiService {
       error: () => {
         this.showError('Failed to register')
       }
-    })
+    })} else {
+      this.showError(`Passwords don't match`)
+    }
   }
 
   public register(username: string, password: string, value: boolean) {
+    console.log(value)
     this.http.post(`http://localhost:3000/users`, {
       id: null,
       username,

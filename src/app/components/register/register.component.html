@@ -8,13 +8,17 @@
         <input matInput type="password" [(ngModel)]="password">
     </mat-form-field><br>
     <mat-form-field appearance="fill" class="login-input">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" [(ngModel)]="password2">
+  </mat-form-field><br>
+    <mat-form-field appearance="fill" class="login-input">
         <mat-label>Select</mat-label>
         <mat-select>
-          <mat-option value="false" [(ngModel)]="value">Patient</mat-option>
-          <mat-option value="true" [(ngModel)]="value">Doctor</mat-option>
+          <mat-option (onSelectionChange)="setValueFalse()">Patient</mat-option>
+          <mat-option (onSelectionChange)="setValueTrue()">Doctor</mat-option>
         </mat-select>
       </mat-form-field><br>
-    <button mat-raised-button color="primary" class="login-input button" (click)="ui.tryRegister(username, password, value)">Register and Login</button><br>
+    <button mat-raised-button color="primary" class="login-input button" (click)="ui.tryRegister(username, password, password2, value)">Register and Login</button><br>
     <button mat-raised-button color="basic" class="login-input button" (click)="ui.startLogin()">Already Have Account</button>
 
 </div>

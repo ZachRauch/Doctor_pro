@@ -19,20 +19,20 @@
       "doctorId": 1,
       "patientId": null,
       "date": "2022-11-30",
-      "slots": 0
+      "slots": 1
     },
     {
       "id": 1,
       "doctorId": 1,
       "patientId": 0,
       "date": "2022-11-30",
-      "slot": 1
+      "slot": 2
     },
     {
       "doctorId": 1,
       "patientId": null,
       "date": "2022-12-31T06:00:00.000Z",
-      "slot": 0,
+      "slot": 1,
       "id": 2
     }
   ]
