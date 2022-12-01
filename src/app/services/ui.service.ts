@@ -17,6 +17,7 @@ export class UiService {
   private username: string | undefined
   private doctor = false
   private appointments: Appointment[] = []
+  private bookedAppts: Appointment[] = []
   private showNewAppointment = false
 
   constructor(private http: HttpClient,
@@ -65,8 +66,56 @@ export class UiService {
     this.showNewAppointment = false
   }
 
+  // BUG here, doesn't stop people from booking the same appointment slot
   public newApp(date: Date, slot: number): void {
-    this.showNewAppointment = false
+    slot--
+
+    if (slot < 0 || slot > 8 || slot % 1 !== 0) { 
+      this.showError('Slot is invalid')
+      return
+    }
+    if (date < new Date()) {
+      this.showError('Date is invalid.')
+      return
+    }
+
+
+    if (this.userId === undefined) {
+      this.showError('BUG! You are not logged in.')
+      return
+    }
+
+    else {
+      this.http.post('http://localhost:3000/appointments', {
+      doctorId: this.userId, 
+      patientId: null, 
+      date, 
+      slot}
+    ).pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadAppointments()
+      },
+      error: () => {
+          this.showError('Oops, something went wrong on the server side')
+        }
+    })
+      this.showNewAppointment = false
+      return
+  }
+  }
+
+  public deleteAppt(id: number) {
+    this.http.delete(`http://localhost:3000/appointments/${id}`)
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadAppointments()
+      },
+      error: () => {
+        this.showError('Oops, something went wrong on the server side')
+      }
+    })
   }
 
   public startRegister(): void {
@@ -80,11 +129,12 @@ export class UiService {
   }
 
   private showError(message: string): void {
-    this._snackBar.open(message, undefined, {duration: 5000})
+    this._snackBar.open(message, undefined, {duration: 10000})
   }
 
   private loginSuccess(user: User): void {
     this.showLogin = false
+    this.showRegister = false
     this.userId = user.id
     this.username = user.username
     this.doctor = user.doctor
@@ -93,21 +143,55 @@ export class UiService {
     this.loadAppointments()
   }
 
-  private loadAppointments(): void {
-    this.loading = true
-    if (this.doctor) {
-      this.http.get<Appointment[]>(`http://localhost:3000/appointments?doctorId=${this.userId}`)
+  private loadDoctorAppts(): void {
+    this.http.get<Appointment[]>(`http://localhost:3000/appointments?doctorId=${this.userId}`)
       .pipe(take(1))
       .subscribe({
         next: appointments => {
-          console.log(appointments)
           this.appointments = appointments
           this.loading = false},
-        error: () => this.showError('Oops, something went wrong')
+        error: () => {
+          this.loading = false
+          this.showError('Oops, something went wrong')
+        }
       })
+  }
+
+  private loadPatientBookedAppts(): void {
+    this.http.get<Appointment[]>(`http://localhost:3000/appointments?patientId=${this.userId}`)
+      .pipe(take(1))
+      .subscribe({
+        next: appointments => {
+          this.bookedAppts = appointments
+          this.loadAvailableAppts()
+          },
+        error: () => {
+          this.loading = false
+          this.showError('Oops, something went wrong')
+        }
+      })
+  }
+
+  private loadAvailableAppts(): void {
+    this.http.get<Appointment[]>('http://localhost:3000/appointments')
+      .pipe(take(1))
+      .subscribe({
+        next: appointments => {
+          this.appointments = appointments.filter(appt => appt.patientId === null)
+          this.loading = false},
+        error: () => {
+          this.loading = false
+          this.showError('Oops, something went wrong')
+        }
+      })
+  }
+
+  private loadAppointments(): void {
+    this.loading = true
+    if (this.doctor) {
+      this.loadDoctorAppts()
     } else {
-      this.showError(`Patient appointments haven't been implemented yet`)
-      this.loading = false
+      this.loadPatientBookedAppts()
     }
   }
 
@@ -140,6 +224,79 @@ export class UiService {
     this.showRegister = false
     this.showNewAppointment = false
     localStorage.clear()
+  }
+
+  getPatientBookedAppts(): Appointment[] {
+    return this.bookedAppts
+  }
+
+  public bookAppt(appointment: Appointment): void {
+    this.http.put(`http://localhost:3000/appointments/${appointment.id}`, {
+      ...appointment,
+      patientId: this.userId
+    })
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadAppointments()
+      },
+      error: () => {
+        this.showError('Failed to book')
+      }
+    })
+
+  }
+
+  public cancelAppt(appointment: Appointment): void {
+    this.http.put(`http://localhost:3000/appointments/${appointment.id}`, {
+      ...appointment,
+      patientId: null
+    })
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.loadAppointments()
+      },
+      error: () => {
+        this.showError('Failed to cancel')
+      }
+    })
+  }
+
+  public tryRegister(username: string, password: string, value: boolean): void {
+    this.http.get<User[]>(`http://localhost:3000/users?username=${username}`)
+    .pipe(take(1))
+    .subscribe({
+      next: users => {
+        if (users.length > 0) {
+          this.showError('Username is unavailable')
+          return
+        }
+
+        this.register(username, password, value)
+      },
+      error: () => {
+        this.showError('Failed to register')
+      }
+    })
+  }
+
+  public register(username: string, password: string, value: boolean) {
+    this.http.post(`http://localhost:3000/users`, {
+      id: null,
+      username,
+      password,
+      doctor: value
+    })
+    .pipe(take(1))
+    .subscribe({
+      next: () => {
+        this.tryLogin(username, password)
+      },
+      error: () => {
+        this.showError('Failed to register')
+      }
+    })
   }
 
 }

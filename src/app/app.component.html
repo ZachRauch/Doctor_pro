@@ -2,3 +2,4 @@
 <app-register *ngIf="ui.getShowRegister()"></app-register>
 <app-header *ngIf="ui.getUsername() !== undefined"></app-header>
 <app-doctor *ngIf="ui.isDoctor()"></app-doctor>
+<app-patient *ngIf="ui.getUsername() !== undefined && !ui.isDoctor()"></app-patient>

@@ -1,0 +1,8 @@
+<div class="app-cont doc-cell">
+    <p *ngIf="ui.getLoading()"> Loading your booked appointments</p>
+    <app-booked-appt *ngFor="let appointment of ui.getPatientBookedAppts()" [appointment]="appointment"></app-booked-appt>
+</div>
+<div class="app-cont doc-cell">
+    <p *ngIf="ui.getLoading()"> Loading available appointments</p>
+    <app-availability *ngFor="let appointment of ui.getAppointments()" [appointment]="appointment"></app-availability>
+</div>

@@ -1,31 +1,39 @@
 {
-    "users": [
-        {
-            "id": 0,
-            "username": "Zach",
-            "password": "pass1",
-            "doctor": false
-        },
-        {
-            "id": 1,
-            "username": "house",
-            "password": "pass2",
-            "doctor": true
-        }
-    ],
-
-    "appointments": [
-        {
-            "doctorId": 1,
-            "patientId": null,
-            "date": "2022-11-30",
-            "slots": 0
-        },
-        {
-            "doctorId": 1,
-            "patientId": 0,
-            "date": "2022-11-30",
-            "slot": 1
-        }
-    ]
+  "users": [
+    {
+      "id": 0,
+      "username": "Zach",
+      "password": "pass1",
+      "doctor": false
+    },
+    {
+      "id": 1,
+      "username": "house",
+      "password": "pass2",
+      "doctor": true
+    }
+  ],
+  "appointments": [
+    {
+      "id": 0,
+      "doctorId": 1,
+      "patientId": null,
+      "date": "2022-11-30",
+      "slots": 0
+    },
+    {
+      "id": 1,
+      "doctorId": 1,
+      "patientId": 0,
+      "date": "2022-11-30",
+      "slot": 1
+    },
+    {
+      "doctorId": 1,
+      "patientId": null,
+      "date": "2022-12-31T06:00:00.000Z",
+      "slot": 0,
+      "id": 2
+    }
+  ]
 }

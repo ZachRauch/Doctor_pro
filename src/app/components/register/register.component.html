@@ -1,24 +1,20 @@
 <div class="container">
     <mat-form-field appearance="fill" class="login-input">
         <mat-label>Username</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <br>
+        <input matInput [(ngModel)]="username">
+    </mat-form-field><br>
     <mat-form-field appearance="fill" class="login-input">
         <mat-label>Password</mat-label>
-        <input matInput type="password">
-    </mat-form-field>
-    <br>
+        <input matInput type="password" [(ngModel)]="password">
+    </mat-form-field><br>
     <mat-form-field appearance="fill" class="login-input">
         <mat-label>Select</mat-label>
         <mat-select>
-          <mat-option value="Patient">Patient</mat-option>
-          <mat-option value="Doctor">Doctor</mat-option>
+          <mat-option value="false" [(ngModel)]="value">Patient</mat-option>
+          <mat-option value="true" [(ngModel)]="value">Doctor</mat-option>
         </mat-select>
-      </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" class="login-input button">Register and Login</button>
-    <br>
+      </mat-form-field><br>
+    <button mat-raised-button color="primary" class="login-input button" (click)="ui.tryRegister(username, password, value)">Register and Login</button><br>
     <button mat-raised-button color="basic" class="login-input button" (click)="ui.startLogin()">Already Have Account</button>
 
 </div>

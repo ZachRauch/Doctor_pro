@@ -1,12 +1,12 @@
 <div class="container">
     <mat-form-field appearance="fill" class="login-inout">
         <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username">
+        <input matInput [(ngModel)]="username" (keydown.enter)="ui.tryLogin(username, password)">
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill" class="login-inout">
         <mat-label>Password</mat-label>
-        <input matInput type="password" [(ngModel)]="password">
+        <input matInput type="password" [(ngModel)]="password" (keydown.enter)="ui.tryLogin(username, password)">
     </mat-form-field>
     <br>
 

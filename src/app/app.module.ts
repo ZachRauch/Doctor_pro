@@ -24,6 +24,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { DoctorComponent } from './components/doctor/doctor.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { PatientComponent } from './components/patient/patient.component';
+import { AvailabilityComponent } from './components/availability/availability.component';
+import { BookedApptComponent } from './components/booked-appt/booked-appt.component';
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { NewAppointmentComponent } from './components/new-appointment/new-appoin
     HeaderComponent,
     DoctorComponent,
     AppointmentComponent,
-    NewAppointmentComponent
+    NewAppointmentComponent,
+    PatientComponent,
+    AvailabilityComponent,
+    BookedApptComponent
   ],
   imports: [
     BrowserModule,
