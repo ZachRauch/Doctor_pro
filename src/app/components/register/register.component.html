@@ -14,8 +14,8 @@
     <mat-form-field appearance="fill" class="login-input">
         <mat-label>Select</mat-label>
         <mat-select>
-          <mat-option (onSelectionChange)="setValueFalse()">Patient</mat-option>
-          <mat-option (onSelectionChange)="setValueTrue()">Doctor</mat-option>
+          <mat-option (onSelectionChange)="setValueFalse()" [value]="patient">Patient</mat-option>
+          <mat-option (onSelectionChange)="setValueTrue()" [value]="doctor">Doctor</mat-option>
         </mat-select>
       </mat-form-field><br>
     <button mat-raised-button color="primary" class="login-input button" (click)="ui.tryRegister(username, password, password2, value)">Register and Login</button><br>

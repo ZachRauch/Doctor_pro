@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/User';
 import { take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LowerCasePipe } from '@angular/common';
 import { Appointment } from 'src/Appointment';
 
 @Injectable({

@@ -11,6 +11,9 @@ export class RegisterComponent {
   public password = ''
   public password2 = ''
   public value = false
+  public patient = 'Patient'
+  public doctor = 'Doctor'
+
 
   constructor(public ui: UiService) {}
 
