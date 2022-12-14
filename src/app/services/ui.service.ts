@@ -86,7 +86,7 @@ export class UiService {
     }
 
     else {
-      this.http.post('http://localhost:3000/appointments', {
+      this.http.post('http://localhost:8080/appointments', {
       doctorId: this.userId, 
       patientId: null, 
       date, 
@@ -106,7 +106,7 @@ export class UiService {
   }
 
   public deleteAppt(id: number) {
-    this.http.delete(`http://localhost:3000/appointments/${id}`)
+    this.http.delete(`http://localhost:8080/appointments/${id}`)
     .pipe(take(1))
     .subscribe({
       next: () => {
@@ -144,7 +144,7 @@ export class UiService {
   }
 
   private loadDoctorAppts(): void {
-    this.http.get<Appointment[]>(`http://localhost:3000/appointments?doctorId=${this.userId}`)
+    this.http.get<Appointment[]>(`http://localhost:8080/appointments?doctorId=${this.userId}`)
       .pipe(take(1))
       .subscribe({
         next: appointments => {
@@ -158,7 +158,7 @@ export class UiService {
   }
 
   private loadPatientBookedAppts(): void {
-    this.http.get<Appointment[]>(`http://localhost:3000/appointments?patientId=${this.userId}`)
+    this.http.get<Appointment[]>(`http://localhost:8080/appointments?patientId=${this.userId}`)
       .pipe(take(1))
       .subscribe({
         next: appointments => {
@@ -173,7 +173,7 @@ export class UiService {
   }
 
   private loadAvailableAppts(): void {
-    this.http.get<Appointment[]>('http://localhost:3000/appointments')
+    this.http.get<Appointment[]>('http://localhost:8080/appointments')
       .pipe(take(1))
       .subscribe({
         next: appointments => {
@@ -196,7 +196,7 @@ export class UiService {
   }
 
   public tryLogin(username: string, password: string) {
-    this.http.get<User[]>(`http://localhost:3000/users?username=${username}&password=${password}`)
+    this.http.get<User[]>(`http://localhost:8080/users?username=${username}&password=${password}`)
     .pipe(take(1))
     .subscribe({
       next: users => {
@@ -231,7 +231,7 @@ export class UiService {
   }
 
   public bookAppt(appointment: Appointment): void {
-    this.http.put(`http://localhost:3000/appointments/${appointment.id}`, {
+    this.http.put(`http://localhost:8080/appointments/${appointment.id}`, {
       ...appointment,
       patientId: this.userId
     })
@@ -248,7 +248,7 @@ export class UiService {
   }
 
   public cancelAppt(appointment: Appointment): void {
-    this.http.put(`http://localhost:3000/appointments/${appointment.id}`, {
+    this.http.put(`http://localhost:8080/appointments/${appointment.id}`, {
       ...appointment,
       patientId: null
     })
@@ -267,7 +267,7 @@ export class UiService {
   }
 
   public tryRegister(username: string, password: string, password2: string, value: boolean): void {
-    if (password === password2) {this.http.get<User[]>(`http://localhost:3000/users?username=${username}`)
+    if (password === password2) {this.http.get<User[]>(`http://localhost:8080/users?username=${username}`)
     .pipe(take(1))
     .subscribe({
       next: users => {
@@ -288,7 +288,7 @@ export class UiService {
 
   public register(username: string, password: string, value: boolean) {
     console.log(value)
-    this.http.post(`http://localhost:3000/users`, {
+    this.http.post(`http://localhost:8080/users`, {
       id: null,
       username,
       password,
