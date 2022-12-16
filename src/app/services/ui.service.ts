@@ -195,19 +195,14 @@ export class UiService {
   }
 
   public tryLogin(username: string, password: string) {
-    this.http.get<User[]>(`http://localhost:8080/users?username=${username}&password=${password}`)
+    this.http.get<User>(`http://localhost:8080/users?username=${username}&password=${password}`)
     .pipe(take(1))
     .subscribe({
-      next: users => {
-      if (users.length !== 1) {
-        this.showError('Invalid Username and/or Password')
-        return
-        }
-
-        this.loginSuccess(users[0])
+      next: user => {
+        this.loginSuccess(user)
       },
       error: err => {
-        this.showError('Oops, something went wrong on the server side')
+        this.showError('Oops, something went wrong')
         }
       }
     )
@@ -266,23 +261,9 @@ export class UiService {
   }
 
   public tryRegister(username: string, password: string, password2: string, value: boolean): void {
-    if (password === password2) {this.http.get<User[]>(`http://localhost:8080/users?username=${username}`)
-    .pipe(take(1))
-    .subscribe({
-      next: users => {
-        if (users.length > 0) {
-          this.showError('Username is unavailable')
-          return
-        }
-
-        this.register(username, password, value)
-      },
-      error: () => {
-        this.showError('Failed to register')
-      }
-    })} else {
-      this.showError(`Passwords don't match`)
-    }
+    if (password == password2) 
+      this.register(username, password, value)
+    else this.showError(`Passwords don't match`)
   }
 
   public register(username: string, password: string, value: boolean) {
